@@ -1,0 +1,7 @@
+{
+  "ansible": {
+    "roles": [
+      "/Users/voytek/ansible-city"
+    ]
+  }
+}
