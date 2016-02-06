@@ -8,7 +8,7 @@ Play = function (name) {
 	this.roles = [];
 };
 
-Play.prototype.getData = function() {
+Play.prototype.getData = function () {
 	var yaml = {
 		name: this.name,
 		hosts: this.hosts,
@@ -21,14 +21,14 @@ Play.prototype.getData = function() {
 	};
 
 	return yaml;
-}
+};
 
-Play.prototype.addRole = function(role) {
+Play.prototype.addRole = function (role) {
 	this.roles.push(role);
-}
+};
 
-Play.prototype.addRoles = function(roles) {
+Play.prototype.addRoles = function (roles) {
 	roles.forEach( r => this.addRole(r) );
-}
+};
 
 module.exports = Play;

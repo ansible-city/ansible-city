@@ -1,21 +1,21 @@
 'use strict';
 
 var fs = require('fs');
-var Role = require('./role');
+var Role = require('./Role');
 var RoleList, isRole;
 
 RoleList = function () {};
 
-isRole = function(path) {
+isRole = function (path) {
 	var role = new Role(path);
 
 	return role.isRole();
-}
+};
 
-RoleList.prototype.scanFolders = function(err, cb, folders) {
+RoleList.prototype.scanFolders = function (err, cb, folders) {
 	var scanFolder, promises;
 
-	scanFolder = function(err, cb, folder) {
+	scanFolder = function (err, cb, folder) {
 		fs.readdir(folder, function (readdirErr, files) {
 			var roles;
 
@@ -31,7 +31,7 @@ RoleList.prototype.scanFolders = function(err, cb, folders) {
 	};
 
 	promises = folders.map(function (folder) {
-		return new Promise(function (resolve, reject) {
+		return new Promise( (resolve, reject) => {
 			scanFolder(reject, resolve, folder);
 		});
 	});
@@ -43,10 +43,10 @@ RoleList.prototype.scanFolders = function(err, cb, folders) {
 	});
 };
 
-RoleList.prototype.getFromList = function(err, cb, rolesList, roleName) {
+RoleList.prototype.getFromList = function (err, cb, rolesList, roleName) {
 	return rolesList.filter(function (role) {
-		return role.name == roleName
+		return role.name === roleName;
 	});
 };
 
-module.exports = RoleList
+module.exports = RoleList;

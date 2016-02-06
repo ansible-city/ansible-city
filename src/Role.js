@@ -3,8 +3,8 @@
 var fs = require('fs');
 var ph = require('path');
 var YAML = require('js-yaml');
-var PATH_META = '/meta/main.yml'
-var PATH_DEFAULTS = '/defaults/main.yml'
+var PATH_META = '/meta/main.yml';
+var PATH_DEFAULTS = '/defaults/main.yml';
 var Role;
 
 Role = function (path) {
@@ -14,7 +14,7 @@ Role = function (path) {
 	this.meta = {};
 };
 
-Role.prototype.isRole = function() {
+Role.prototype.isRole = function () {
 	try {
 		fs.accessSync(this._path + '/tasks/main.yml', fs.R_OK);
 		fs.accessSync(this._path + PATH_META, fs.R_OK);
@@ -25,7 +25,7 @@ Role.prototype.isRole = function() {
 	return true;
 };
 
-Role.prototype.getRoleData = function() {
+Role.prototype.getRoleData = function () {
 	var data = {
 		name: this.name,
 	};
@@ -34,7 +34,7 @@ Role.prototype.getRoleData = function() {
 	return data;
 };
 
-Role.prototype.getPlayData = function() {
+Role.prototype.getPlayData = function () {
 	var data = {
 		name: this.name,
 	};
@@ -42,26 +42,31 @@ Role.prototype.getPlayData = function() {
 	return data;
 };
 
-Role.prototype.getDefaults = function(err, cb) {
+Role.prototype.getDefaultsData = function (cb) {
 	var role = this;
 
 	fs.readFile(this._path + PATH_DEFAULTS, (readErr, content) => {
-		if (readErr) cb({ });
+		if (readErr) {
+			cb(readErr, { });
+		}
 
 		role.defaults = YAML.safeLoad(content.toString());
-		cb(role.defaults);
+		cb(null, role.defaults);
 	});
 };
+Role.prototype.getDefaults = Role.prototype.getDefaultsData;
 
-Role.prototype.getMeta = function(err, cb) {
+Role.prototype.getMetaData = function (cb) {
 	var role = this;
 
 	fs.readFile(this._path + PATH_META, (readErr, content) => {
-		if (readErr) err(readErr);
+		if (readErr) {
+			cb(readErr, {});
+		}
 
 		role.meta = YAML.safeLoad(content.toString());
-		cb(role.meta);
+		cb(null, role.meta);
 	});
-}
+};
 
 module.exports = Role;

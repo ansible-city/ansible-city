@@ -1,8 +1,7 @@
 'use strict';
 
 var RoleList = require('./src/role-list.js')
-var Play = require('./src/Play.js')
-var Playbook = require('./src/Playbook.js')
+var Role = require('./src/Role.js')
 var config = require('./config.json');
 var YAML = require('js-yaml');
 var list = new RoleList();
@@ -25,5 +24,4 @@ var cb = function(roles) {
 }
 
 process.argv.splice(0,2);
-
 list.scanFolders(null, cb, config.ansible.roles);
