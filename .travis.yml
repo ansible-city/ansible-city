@@ -1,0 +1,20 @@
+---
+
+group: stable
+dist: trusty
+branches:
+  only:
+    - develop
+    - master
+
+language: node_js
+node_js:
+  - 5
+  - 4
+
+install:
+  - make install
+
+script:
+  - make hint
+  - make test

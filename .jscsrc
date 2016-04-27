@@ -1,0 +1,7 @@
+{
+	"validateIndentation": "\t",
+	"requireSpacesInAnonymousFunctionExpression": {
+		"beforeOpeningCurlyBrace": true,
+		"beforeOpeningRoundBrace": true
+	}
+}

@@ -11,7 +11,7 @@ describe('Role List', function() {
 		cb = function(roles) {
 			assert.equal('role_a', roles[0].name);
 			done();
-		}
+		};
 		list.scanFolders(done, cb, [ './test/roles' ]);
 	});
 });

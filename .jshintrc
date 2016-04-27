@@ -1,0 +1,19 @@
+{
+	"curly": true,
+	"eqeqeq": true,
+	"esversion": 6,
+	"freeze": true,
+	"latedef": true,
+	"nocomma": true,
+	"node": true,
+	"nonew": true,
+	"undef": true,
+	"unused": true,
+
+	"overrides": {
+		"test/spec/*.spec.js": {
+			"expr": true,
+			"mocha": true
+		}
+	}
+}
