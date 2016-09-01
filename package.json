@@ -7,7 +7,11 @@
     "type": "git",
     "url": "git@github.com/ansible-city/builder.git"
   },
+  "bin": {
+    "ansible-city": "./cli.js"
+  },
   "dependencies": {
+    "commander": "^2.9.0",
     "es6-module-jstransform": "~0.1.4",
     "express": "^4.13.4",
     "js-yaml": "^3.5.2"

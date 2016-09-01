@@ -1,0 +1,16 @@
+---
+
+- name: Default project configurations
+
+  folders:
+    - ansible
+    - ansible/inventory
+    - ansible/playbooks
+    - ansible/playbooks/hotfixes
+    - ansible/playbooks/machines
+    - ansible/playbooks/support
+    - ansible/roles
+    - ansible/vars
+    - ansible/vendor
+    - machines
+    - vagrant

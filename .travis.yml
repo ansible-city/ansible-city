@@ -13,7 +13,7 @@ node_js:
   - 4
 
 install:
-  - make install
+  - make deps
 
 script:
   - make hint
