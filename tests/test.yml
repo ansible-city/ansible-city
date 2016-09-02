@@ -1,0 +1,83 @@
+---
+
+- name: Test Composer
+  hosts: all
+
+  pre_tasks:
+    - name: Update apt
+      become: yes
+      apt:
+        cache_valid_time: 1800
+        update_cache: yes
+      tags:
+        - build
+
+    - name: Ensure php
+      become: yes
+      apt:
+        name: php5-cli
+      tags:
+        - build
+
+    - name: Add test users
+      become: yes
+      user:
+        name: "{{ item }}"
+      with_items:
+        - test
+        - test_no_auth
+        - test_single_auth
+      tags:
+        - build
+
+  roles:
+    - role: ansible-city.composer
+      composer:
+        user: test_no_auth
+
+    - role: ansible-city.composer
+      composer:
+        user: test_single_auth
+        auth:
+          github:
+            github.com: qwerty654321
+
+    - role: ansible-city.composer
+      composer:
+        user: test
+        install_dir: /home/test
+        auth:
+          github:
+            github.com: qwerty654321
+          http:
+            repo.example.org:
+              username: username
+              password: secret-password
+
+  post_tasks:
+    - name: test_single_auth user should be configured with only github oauth
+      become: yes
+      command: "grep '\"github.com\": \"qwerty654321\"' /home/test_single_auth/.composer/auth.json"
+      tags:
+        - assert
+
+    - name: test user should have composer installed
+      become: yes
+      stat:
+        path: /home/vagrant/test/composer.phar
+      register: st
+      failed_when: not st.stat.exists
+      tags:
+        - assert
+
+    - name: test user should be configured with github oauth
+      become: yes
+      command: "grep '\"github.com\": \"qwerty654321\"' /home/test/.composer/auth.json"
+      tags:
+        - assert
+
+    - name: test user should be configured with github http auth
+      become: yes
+      command: "grep '\"password\": \"secret-password\"' /home/test/.composer/auth.json"
+      tags:
+        - assert
